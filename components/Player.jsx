@@ -24,6 +24,7 @@ export default function Player({
   canControl,
   audioError,
   retryAudio,
+  audioPreparing,
   needsUnlock,
   unlockPlayback,
 }) {
@@ -103,11 +104,11 @@ export default function Player({
         <button
           className="ctrl-btn ctrl-play"
           onClick={togglePlay}
-          disabled={!canControl || !track}
-          title={isPlaying ? 'Pause' : 'Play'}
+          disabled={!canControl || !track || audioPreparing}
+          title={audioPreparing ? 'Menyiapkan audio...' : isPlaying ? 'Pause' : 'Play'}
           aria-label={isPlaying ? 'Pause' : 'Play'}
         >
-          <Icon name={isPlaying ? 'pause' : 'play'} size={24} />
+          {audioPreparing ? <Icon name="spinner" spin size={24} /> : <Icon name={isPlaying ? 'pause' : 'play'} size={24} />}
         </button>
         <button
           className="ctrl-btn"
@@ -119,6 +120,10 @@ export default function Player({
           <Icon name="next" size={22} />
         </button>
       </div>
+
+      {audioPreparing && !isPlaying ? (
+        <div className="audio-preparing">Menyiapkan audio...</div>
+      ) : null}
 
       {needsUnlock ? (
         <button className="btn btn-unlock" onClick={unlockPlayback}>

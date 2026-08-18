@@ -19,13 +19,14 @@ const PATHS = {
   volumeOff: 'M3 9v6h4l5 5V4L7 9H3zm14 3 3-3 1.4 1.4L18.4 13l3 3L20 17.4l-3-3-3 3L12.6 16z',
   grip: 'M9 5.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM9 10.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM9 15.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z',
   headphones: 'M4 13a8 8 0 0 1 16 0v3h-3v-6h3V15a3 3 0 0 1-6 0v-2H8v2a3 3 0 0 1-6 0zM4 16a3 3 0 0 0 3 3v-2h-3z',
+  spinner: 'M12 3a9 9 0 1 0 9 9h-2.5A6.5 6.5 0 1 1 12 5.5V3z',
 }
 
-export default function Icon({ name, size = 20, className = '' }) {
+export default function Icon({ name, size = 20, className = '', spin = false }) {
   const d = PATHS[name] || PATHS.music
   return (
     <svg
-      className={`icon ${className}`}
+      className={`icon ${spin ? 'spin' : ''} ${className}`}
       width={size}
       height={size}
       viewBox="0 0 24 24"

@@ -522,6 +522,26 @@ input[type='range']:disabled::-moz-range-thumb {
   padding: 10px 12px;
 }
 
+.audio-preparing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-faint);
+  font-size: 13px;
+  animation: fadeIn 0.2s ease;
+}
+
+.icon.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .player-volume {
   display: flex;
   align-items: center;

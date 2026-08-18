@@ -158,6 +158,7 @@ export default function Room({ code, create }) {
             canControl={room.canControl}
             audioError={room.audioError}
             retryAudio={room.retryAudio}
+            audioPreparing={room.audioPreparing}
             needsUnlock={room.needsUnlock}
             unlockPlayback={room.unlockPlayback}
           />
