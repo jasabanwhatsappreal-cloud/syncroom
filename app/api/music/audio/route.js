@@ -17,9 +17,13 @@ export async function POST(request) {
   }
 
   try {
-    const data = await drowifyPost('/api/ytplay', {
-      query: `https://youtube.com/watch?v=${videoId}`,
-    })
+    const data = await drowifyPost(
+      '/api/ytplay',
+      {
+        query: `https://youtube.com/watch?v=${videoId}`,
+      },
+      55000
+    )
     if (!data || data.status === false) {
       return Response.json({ error: 'Gagal mengambil audio.' }, { status: 502 })
     }
