@@ -14,7 +14,7 @@ export default function RoomLanding() {
 
   const createRoom = () => {
     player.pause()
-    router.push(`/room/${generateRoomCode()}`)
+    router.push(`/room/${generateRoomCode()}?create=1`)
   }
 
   const joinRoom = (e) => {
