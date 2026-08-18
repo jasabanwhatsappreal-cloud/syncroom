@@ -31,21 +31,28 @@ export default function Player({
   const [dragging, setDragging] = useState(false)
   const [dragPos, setDragPos] = useState(0)
   const sliderRef = useRef(null)
+  const dragPosRef = useRef(0)
   const showVolume = canControl || true
 
-  const progress = duration > 0 ? Math.min(1, (dragging ? dragPos : position) / duration) : 0
+  const dur = isFinite(duration) && duration > 0 ? duration : 0
+  const progress = dur > 0 ? Math.min(1, (dragging ? dragPos : position) / dur) : 0
   const current = dragging ? dragPos : position
 
-  const onSeekChange = (e) => {
-    const sec = Number(e.target.value)
-    setDragPos(sec)
+  const onSeekDown = () => {
     setDragging(true)
   }
 
-  const onSeekEnd = () => {
+  const onSeekChange = (e) => {
+    const sec = Number(e.target.value)
+    dragPosRef.current = sec
+    setDragPos(sec)
+  }
+
+  const onSeekEnd = (e) => {
     setDragging(false)
-    if (seekTo && duration > 0) {
-      seekTo(dragPos)
+    if (seekTo && dur > 0) {
+      const sec = Number(e.target && e.target.value)
+      seekTo(Number.isFinite(sec) && sec >= 0 ? sec : dragPosRef.current)
     }
   }
 
@@ -77,13 +84,16 @@ export default function Player({
         className="seek-input"
         type="range"
         min={0}
-        max={duration || 0}
+        max={dur}
         step={0.1}
-        value={Math.min(current, duration || 100000)}
-        disabled={!canControl || !duration}
+        value={Math.min(current, dur || 100000)}
+        disabled={!canControl || !dur}
         onChange={onSeekChange}
+        onPointerDown={onSeekDown}
         onPointerUp={onSeekEnd}
+        onPointerCancel={onSeekEnd}
         onKeyUp={onSeekEnd}
+        onBlur={onSeekEnd}
       />
 
       <div className="player-times">
